@@ -25,6 +25,7 @@ import kotlin.random.Random.Default.nextLong
  * @author Noonmaru
  */
 class InvCaptivePlugin : JavaPlugin(), Listener {
+    val blacklist = listOf<Material>()
 
     private lateinit var slotsByType: EnumMap<Material, Int>
 
@@ -34,7 +35,7 @@ class InvCaptivePlugin : JavaPlugin(), Listener {
         server.pluginManager.registerEvents(this, this)
         loadInventory()
 
-        val list = Material.values().filter { it.isBlock && !it.isAir }.shuffled(Random(seed))
+        val list = Material.values().filter { it.isBlock && !it.isAir && !blacklist.contains(it) }.shuffled(Random(seed))
         val count = 9 * 4 + 5
 
         val map = EnumMap<Material, Int>(Material::class.java)
