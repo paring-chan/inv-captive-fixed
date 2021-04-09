@@ -25,7 +25,7 @@ import kotlin.random.Random.Default.nextLong
  * @author Noonmaru
  */
 class InvCaptivePlugin : JavaPlugin(), Listener {
-    val blacklist = listOf<Material>()
+    private val blacklist = listOf(Material.BEDROCK, Material.COMMAND_BLOCK, Material.CHAIN_COMMAND_BLOCK, Material.REPEATING_COMMAND_BLOCK)
 
     private lateinit var slotsByType: EnumMap<Material, Int>
 
