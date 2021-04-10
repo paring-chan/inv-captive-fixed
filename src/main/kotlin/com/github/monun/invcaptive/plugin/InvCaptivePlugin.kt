@@ -104,16 +104,18 @@ class InvCaptivePlugin : JavaPlugin(), Listener {
 
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
-        event.currentItem?.let {
-            if (it.type == Material.BARRIER) {
-                event.isCancelled = true
-                return
-            }
+        if (event.currentItem?.type == Material.BARRIER) {
+            event.isCancelled = true
+            return
         }
 
-        if (event.action == InventoryAction.HOTBAR_SWAP) {
-            val item = event.whoClicked.inventory.getItem(event.hotbarButton)
-            if (item != null && item.type == Material.BARRIER) {
+        if (event.cursor?.type == Material.BARRIER) {
+            event.isCancelled = true
+            return
+        }
+
+        if (event.action == InventoryAction.HOTBAR_SWAP || event.action == InventoryAction.HOTBAR_MOVE_AND_READD) {
+            if (event.hotbarButton > -1 && event.whoClicked.inventory.getItem(event.hotbarButton)?.type == Material.BARRIER) {
                 event.isCancelled = true
             }
         }
